@@ -14,6 +14,7 @@ class Item extends Model
         'description',
         'image_url',
         'brand_id',
+        'active',
     ];
     /**
      * Get the user that owns the Item
