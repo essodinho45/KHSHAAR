@@ -24,7 +24,16 @@ class BrandController extends Controller
 
     public function store(StoreBrandRequest $request): RedirectResponse
     {
-        Brand::create($request->validated());
+        $validated_data = $request->validated();
+        $path = '';
+        $logo = $request->file('logo');
+        if ($logo)
+            $path = $logo->store('brand_logos', 'public');
+
+        Brand::create([
+            'name' => $validated_data['name'],
+            'logo_url' => $path
+        ]);
 
         return to_route('brands.index');
     }
@@ -36,7 +45,16 @@ class BrandController extends Controller
 
     public function update(UpdateBrandRequest $request, Brand $brand): RedirectResponse
     {
-        $brand->update($request->validated());
+        $validated_data = $request->validated();
+        $path = $brand->logo_url;
+        $logo = $request->file('logo');
+        if ($logo)
+            $path = $logo->store('brand_logos', 'public');
+
+        $brand->update([
+            'name' => $validated_data['name'],
+            'logo_url' => $path
+        ]);
 
         return to_route('brands.index');
     }

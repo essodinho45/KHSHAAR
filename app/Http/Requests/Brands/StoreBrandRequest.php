@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Brands;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\File;
 
 class StoreBrandRequest extends FormRequest
 {
@@ -23,6 +24,10 @@ class StoreBrandRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
+            'logo' => [
+                'nullable',
+                File::image()->max(2 * 1024),
+            ]
         ];
     }
 }
