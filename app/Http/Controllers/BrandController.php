@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Brands\StoreBrandRequest;
 use App\Http\Requests\Brands\UpdateBrandRequest;
 use App\Models\Brand;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 

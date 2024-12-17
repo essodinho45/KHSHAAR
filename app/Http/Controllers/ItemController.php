@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Items\StoreItemRequest;
+use App\Http\Requests\Items\UpdateItemRequest;
 use App\Models\Item;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -23,13 +25,16 @@ class ItemController extends Controller
     {
         $validated_data = $request->validated();
         $path = '';
-        $logo = $request->file('logo');
-        if ($logo)
-            $path = $logo->store('item_logos', 'public');
+        $image = $request->file('image');
+        if ($image)
+            $path = $image->store('item_images', 'public');
 
         Item::create([
             'name' => $validated_data['name'],
-            'logo_url' => $path
+            'description' => $validated_data['description'],
+            'active' => $validated_data['active'],
+            'brand_id' => $validated_data['brand_id'],
+            'image_url' => $path
         ]);
 
         return to_route('items.index');
@@ -43,14 +48,17 @@ class ItemController extends Controller
     public function update(UpdateItemRequest $request, Item $item): RedirectResponse
     {
         $validated_data = $request->validated();
-        $path = $item->logo_url;
-        $logo = $request->file('logo');
-        if ($logo)
-            $path = $logo->store('item_logos', 'public');
+        $path = $item->image_url;
+        $image = $request->file('image');
+        if ($image)
+            $path = $image->store('item_images', 'public');
 
         $item->update([
             'name' => $validated_data['name'],
-            'logo_url' => $path
+            'description' => $validated_data['description'],
+            'active' => $validated_data['active'],
+            'brand_id' => $validated_data['brand_id'],
+            'image_url' => $path
         ]);
 
         return to_route('items.index');
