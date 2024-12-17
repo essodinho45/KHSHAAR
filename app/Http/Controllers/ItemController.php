@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Items\StoreItemRequest;
 use App\Http\Requests\Items\UpdateItemRequest;
+use App\Models\Brand;
 use App\Models\Item;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -18,7 +19,8 @@ class ItemController extends Controller
     }
     public function create(): View
     {
-        return view('items.create');
+        $brands = Brand::all();
+        return view('items.create', compact('brands'));
     }
 
     public function store(StoreItemRequest $request): RedirectResponse
@@ -32,7 +34,7 @@ class ItemController extends Controller
         Item::create([
             'name' => $validated_data['name'],
             'description' => $validated_data['description'],
-            'active' => $validated_data['active'],
+            'active' => ($validated_data['active'] == 'on'),
             'brand_id' => $validated_data['brand_id'],
             'image_url' => $path
         ]);
@@ -42,7 +44,8 @@ class ItemController extends Controller
 
     public function edit(Item $item)
     {
-        return view('items.edit', compact('item'));
+        $brands = Brand::all();
+        return view('items.edit', compact('item', 'brands'));
     }
 
     public function update(UpdateItemRequest $request, Item $item): RedirectResponse
@@ -55,8 +58,8 @@ class ItemController extends Controller
 
         $item->update([
             'name' => $validated_data['name'],
-            'description' => $validated_data['description'],
-            'active' => $validated_data['active'],
+            'description' => $validated_data['description'] ?? '',
+            'active' => ($validated_data['active'] == 'on'),
             'brand_id' => $validated_data['brand_id'],
             'image_url' => $path
         ]);

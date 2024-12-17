@@ -22,6 +22,9 @@
                                 <th class="bg-gray-50 dark:bg-gray-950 px-6 py-3 text-left">
                                     <span class="text-xs font-medium uppercase leading-4 tracking-wider text-gray-500">Name</span>
                                 </th>
+                                <th class="bg-gray-50 dark:bg-gray-950 px-6 py-3 text-left">
+                                    <span class="text-xs font-medium uppercase leading-4 tracking-wider text-gray-500">Brand</span>
+                                </th>
                                 <th class="w-56 bg-gray-50 dark:bg-gray-950 px-6 py-3 text-left">
                                 </th>
                             </tr>
@@ -32,6 +35,9 @@
                                     <tr class="bg-white dark:bg-gray-800">
                                         <td class="px-6 py-4 text-sm leading-5 text-gray-900 dark:text-gray-100 whitespace-no-wrap">
                                             {{ $item->name }}
+                                        </td>
+                                        <td class="px-6 py-4 text-sm leading-5 text-gray-900 dark:text-gray-100 whitespace-no-wrap">
+                                            {{ $item->brand->name }}
                                         </td>
                                         <td class="px-6 py-4 text-sm leading-5 text-gray-900 dark:text-gray-100 whitespace-no-wrap">
                                             <a href="{{ route('items.edit', $item) }}"
