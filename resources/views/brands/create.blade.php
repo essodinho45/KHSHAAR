@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            {{ __('Create Brand') }}
+            {{ __('create_brand') }}
         </h2>
     </x-slot>
 
@@ -13,19 +13,19 @@
                         @csrf
 
                         <div>
-                            <x-input-label for="name" value="Name" />
+                            <x-input-label for="name" :value="__('name')" />
                             <x-text-input id="name" name="name" value="{{ old('name') }}" type="text" class="block mt-1 w-full" />
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                         </div>
                         <div class="mt-2">
-                            <x-input-label for="logo" value="Logo" />
+                            <x-input-label for="logo" :value="__('image')" />
                             <x-file-input name="logo" id="logo" type="file" />
                             <x-input-error :messages="$errors->get('logo')" class="mt-2" />
                         </div>
 
                         <div class="mt-4">
                             <x-primary-button>
-                                Save
+                                {{ __('save') }}
                             </x-primary-button>
                         </div>
                     </form>

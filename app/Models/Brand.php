@@ -12,4 +12,9 @@ class Brand extends Model
         'name',
         'logo_url',
     ];
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
 }

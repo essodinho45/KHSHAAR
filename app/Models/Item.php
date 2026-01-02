@@ -13,16 +13,12 @@ class Item extends Model
         'name',
         'description',
         'image_url',
-        'brand_id',
+        'sub_category_id',
         'active',
     ];
-    /**
-     * Get the user that owns the Item
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function brand(): BelongsTo
+
+    public function subCategory(): BelongsTo
     {
-        return $this->belongsTo(Brand::class);
+        return $this->belongsTo(SubCategory::class);
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Items\StoreItemRequest;
 use App\Http\Requests\Items\UpdateItemRequest;
-use App\Models\Brand;
+use App\Models\SubCategory;
 use App\Models\Item;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -13,14 +13,14 @@ class ItemController extends Controller
 {
     public function index(): View
     {
-        $items = Item::paginate(5);
+        $items = Item::with('subCategory')->paginate(5);
 
         return view('items.index', compact('items'));
     }
     public function create(): View
     {
-        $brands = Brand::all();
-        return view('items.create', compact('brands'));
+        $subCategories = SubCategory::all();
+        return view('items.create', compact('subCategories'));
     }
 
     public function store(StoreItemRequest $request): RedirectResponse
@@ -35,7 +35,7 @@ class ItemController extends Controller
             'name' => $validated_data['name'],
             'description' => $validated_data['description'],
             'active' => ($validated_data['active'] == 'on'),
-            'brand_id' => $validated_data['brand_id'],
+            'sub_category_id' => $validated_data['sub_category_id'],
             'image_url' => $path
         ]);
 
@@ -44,8 +44,8 @@ class ItemController extends Controller
 
     public function edit(Item $item)
     {
-        $brands = Brand::all();
-        return view('items.edit', compact('item', 'brands'));
+        $subCategories = SubCategory::all();
+        return view('items.edit', compact('item', 'subCategories'));
     }
 
     public function update(UpdateItemRequest $request, Item $item): RedirectResponse
@@ -60,7 +60,7 @@ class ItemController extends Controller
             'name' => $validated_data['name'],
             'description' => $validated_data['description'] ?? '',
             'active' => ($validated_data['active'] == 'on'),
-            'brand_id' => $validated_data['brand_id'],
+            'sub_category_id' => $validated_data['sub_category_id'],
             'image_url' => $path
         ]);
 

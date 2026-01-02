@@ -25,7 +25,7 @@ class StoreItemRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'description' => ['required', 'string'],
-            'brand_id' => ['required', 'integer'],
+            'sub_category_id' => ['required', 'exists:sub_categories,id'],
             'active' => ['required'],
             'image' => [
                 'nullable',
